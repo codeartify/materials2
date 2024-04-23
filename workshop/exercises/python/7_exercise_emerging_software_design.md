@@ -15,6 +15,7 @@
 ## Exercise part 1
 > Creation of points (including validation of inputs) 
 > should not be done within ```count_contained_points```, as it is not in the responsibility of that method.
+> It's actually a feature envy for a missing creation function of a 'Points' collection concept
 > 
 > 1. Create a new ```Points``` class in a ```points.py``` file with a constructor ```Points(points[])```.
 > 2. Use ```Parallel Change``` to replace the ```points```variable used within the second loop with ```Points(points).points```.
