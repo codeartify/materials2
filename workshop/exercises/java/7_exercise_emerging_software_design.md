@@ -8,12 +8,12 @@
 > Creation of points (including validation of inputs) should happen outside of “countContainedPoints” as it is not in the responsibility of that method.
 > It's actually a feature envy for a missing creation function of a 'Points' collection concept
 > 
-> * Create a new ```Points``` class with a constructor ```Points(List<Point> points)``` and one public method ```public List<Point> asList()``` that returns the list passed to the constructor.
+> * Create a new ```Points``` record with a constructor ```Points(List<Point> points)``` .
 > * Instantiate ```Points points2 = new Points(points)``` right after creation of the ```points``` list.
-> * Replace the ```points``` variable within the second loop with ```points2.asList()```. Make sure to run the tests. 
+> * Replace the ```points``` variable within the second loop with ```points2.points()```. Make sure to run the tests. 
 > * wrap validation logic for coordinates,
 creation of the points array, and creation of the Points object into a static method 
-```Points from(xCoordinates, yCoordinates)```. You may need to use a combination of extract method and inline to achieve this.
+```Points createFrom(xCoordinates, yCoordinates)```. You may need to use a combination of extract method and inline to achieve this.
 > * Move this method to the ```Points``` class. 
 > * Use the "Parallel Change" refactoring
 > 
