@@ -6,6 +6,7 @@
 > Solution branch: **exercise_8**
 > 
 > Creation of points (including validation of inputs) should happen outside of “countContainedPoints” as it is not in the responsibility of that method.
+> It's actually a feature envy for a missing creation function of a 'Points' collection concept
 > 
 > * Create a new ```Points``` class with a constructor ```Points(List<Point> points)``` and one public method ```public List<Point> asList()``` that returns the list passed to the constructor.
 > * Instantiate ```Points points2 = new Points(points)``` right after creation of the ```points``` list.
