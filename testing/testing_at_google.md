@@ -12,7 +12,7 @@
 ![4_types_of_changes.png](images/4_types_of_changes.png)
 
 ## How to Make Brittle Tests More Robust
-1. [!**Unit Test via the Public API**](https://testing.googleblog.com/2015/01/testing-on-toilet-prefer-testing-public.html): 
+1. [**Unit Test via the Public API**](https://testing.googleblog.com/2015/01/testing-on-toilet-prefer-testing-public.html): 
     * Acceptance tests. 
     * Invoke the system like users would invoke it: call against public API, not implementation details.
     * If such a test fails, it implies that also an existing user of the system would be affected.
@@ -29,6 +29,7 @@
           1. Code under test call a method where the **difference in the number or order of calls** would cause undesired behaviors like sideeffects, latency, or multithreading errors
           2. Testing UIs where rendering details of the UI are abstracted away from the UI logic (e.g. only render(html)). Call is important, but not the actual state (html).
     * Avoid overmocking. Prefer real objects over mocks, as long as they are fast and deterministic.
+   
     ![test_state_not_interactions.png](images/test_state_not_interactions.png)
 3. **Write clearer tests**:
     * Test failures happen for 2 reasons: 
@@ -78,3 +79,15 @@
    4. **Write clear failure messages**:
    
        ![clear_failure_message.png](images/clear_failure_message.png)
+3. **Tests and Code Sharing: DAMP, Not DRY**:
+    * **DRY**: Don't Repeat Yourself
+      * DRY makes it easier to change code without breaking it, but sometimes following chains of references needed to understand the code.
+    * **DAMP**: promote Descriptive And Meaningful Phrases 
+      * Test code should strive to be less DRY and more DAMP 
+      * A little bit of duplication is OK in tests so long as that duplication makes the test **simpler and clearer**.
+      * It's not a replacement for DRY. E.g. helper creation functions for test objects are useful. 
+      * Always aim for **concise** and **complete** tests! Abstract away what is not needed to understand the test, but not more.
+   
+    ![damp_not_dry.png](images/damp_not_dry.png)
+
+    ![damp.png](images/damp.png)
