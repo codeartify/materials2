@@ -11,7 +11,7 @@
 - [ ] Only interactions
 - [ ] Mostly interactions, some useful state
 - [ ] Equally split
-- [ ] **Mostly state, some useful interactions**
+- [ ] **Mostly state, some useful interactions (e.g. order or number of calls)**
 - [ ] Only state
 
 ### 3. **Write clearer tests**
@@ -21,7 +21,7 @@
     - [ ] Somewhat concise
     - [ ] Neutral
     - [ ] Fairly concise
-    - [ ] **Concise**: tests only contain relevant information
+    - [ ] **Concise (tests only contain relevant information)**
 
 
 - **Completeness:**
@@ -29,42 +29,42 @@
     - [ ] Somewhat complete
     - [ ] Neutral
     - [ ] Fairly complete
-    - [ ] **Complete** (tests contain all the information a reader needs to understand how it arrives at its result)
+    - [ ] **Complete (tests contain all the information a reader needs to understand how it arrives at its result)**
 
 #### * **Test behaviors, not methods**
 - [ ] Only methods tested (multiple behaviors are tested in a single test. New requirements lead to expanding test methods)
 - [ ] Mostly methods
 - [ ] Equally split
 - [ ] Mostly behaviors
-- [ ] **Only behaviors** tested (each test covers a single behavior, which can span multiple methods)
+- [ ] **Only behaviors tested (each test covers a single behavior, which can span multiple methods)**
 
 #### **Structure Tests According to Behaviors**
-- [ ] Strongly Disagree (convoluted setup, execution, and tear down steps)
+- [ ] Strongly disagree (convoluted setup, execution, and tear down steps)
 - [ ] Disagree
 - [ ] Neutral
 - [ ] Agree
-- [ ] **Strongly Agree (given when then or arrange act assert clearly visible)**
+- [ ] **Strongly agree (given when then or arrange act assert clearly visible)**
 
 #### **Name Tests After the Behavior Being Tested**
-- [ ] Strongly Disagree (overly technical or missing behavior focus)
+- [ ] Strongly disagree (overly technical test names with implementation details or missing behavior focus)
 - [ ] Disagree
 - [ ] Neutral
 - [ ] Agree
-- [ ] **Strongly Agree (e.g. BankAccountShould.doSomething())**
+- [ ] **Strongly agree (e.g. BankAccountShould.doSomething())**
 
 #### * **Don't put logic in tests**
-- [ ] Lots of logic
+- [ ] Lots of logic (iterations, mapping, filtering, etc.)
 - [ ] Some logic
 - [ ] Neutral
 - [ ] Little logic
-- [ ] **No logic**
+- [ ] **No logic** (only assertions, no mapping, no filtering etc.)
 
 #### * **Write clear failure messages**
 - [ ] Unclear (misses all: desired outcome, actual outcome, relevant parameters)
 - [ ] Somewhat unclear
 - [ ] Neutral
 - [ ] Fairly clear
-- [ ] **Clear (clearly distinguishes desired outcome from actual outcome and expresses any relevant parameters)**
+- [ ] **Clear (clearly distinguishes _desired_ outcome from _actual_ outcome and expresses any _relevant_ parameters)**
 
 ### 4. **Tests and Code Sharing: DAMP, Not DRY**
 #### * **DAMP and DRY**
