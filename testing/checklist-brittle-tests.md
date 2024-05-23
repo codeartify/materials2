@@ -1,8 +1,8 @@
 ## Checklist Brittle Tests (DRAFT)
 * **bold** = desirable
 ### 1. **Test via the public API**
-- [ ] Only public API
-- [ ] **Mostly public API, some important public methods not part of the public API with lots of logic**
+- [ ] Only public API (may miss important edge cases)
+- [ ] **Mostly public API, some important behaviors through public methods not part of the public API with lots of logic**
 - [ ] Equally split
 - [ ] Mostly each method (public, but even some package-private or protected)
 - [ ] Each method (public, package-private or protected)
