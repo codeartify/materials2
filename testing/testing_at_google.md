@@ -109,3 +109,17 @@
     ![bad_shared_setup.png](images/bad_shared_setup.png)
    
     ![good_shared_methods.png](images/good_shared_methods.png)
+
+3. **Shared Helpers and Validation**
+    * Helper methods called from the body of test methods.
+    * Good: 
+      * For concisely constructing test values.
+      * Focused validation methods can be useful that assert a **single conceptual fact** about their inputs.
+   
+      ![shared_helpers_good.png](images/shared_helpers_good.png)
+      
+    * Bad: 
+      * Method that performs a common set of assertions against a system under test.
+      * Validate method called at the end of every test method, which performs a fixed set of checks against the SUT.
+      * Problem: what was the intent / context? Less behavior-driven.
+      * **Avoid general purpose assertions**
