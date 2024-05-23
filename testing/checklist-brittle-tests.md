@@ -33,11 +33,11 @@
     - [ ] **Complete** (tests contain all the information a reader needs to understand how it arrives at its result)
 
 #### * **Test behaviors, not methods**
-- [ ] Only methods (multiple behaviors are tested in a single test. New requirements lead to expanding test methods)
+- [ ] Only methods tested (multiple behaviors are tested in a single test. New requirements lead to expanding test methods)
 - [ ] Mostly methods
 - [ ] Equally split
 - [ ] Mostly behaviors
-- [ ] **Only behaviors** (each test covers a single behavior, which can span multiple methods)
+- [ ] **Only behaviors** tested (each test covers a single behavior, which can span multiple methods)
 
 #### **Structure Tests According to Behaviors**
 - [ ] Strongly Disagree (convoluted setup, execution, and tear down steps)
