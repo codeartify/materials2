@@ -110,7 +110,7 @@
    
     ![good_shared_methods.png](images/good_shared_methods.png)
 
-3. **Shared Helpers and Validation**
+3. **Shared Helpers and Validation (in _one_ test file)**
     * Helper methods called from the body of test methods.
     * Good: 
       * For concisely constructing test values.
@@ -120,6 +120,6 @@
       
     * Bad: 
       * Method that performs a common set of assertions against a system under test.
-      * Validate method called at the end of every test method, which performs a fixed set of checks against the SUT.
+        * Validate method called at the end of every test method, which performs a fixed set of checks against the SUT.
       * Problem: what was the intent / context? Less behavior-driven.
       * **Avoid general purpose assertions**

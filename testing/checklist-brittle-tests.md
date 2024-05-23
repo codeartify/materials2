@@ -36,48 +36,46 @@
 - [ ] Mostly methods
 - [ ] Equally split
 - [ ] Mostly behaviors
-- [ ] Only behaviors
+- [ ] **Only behaviors**
 
 #### * **Don't put logic in tests**
 - [ ] Lots of logic
 - [ ] Some logic
 - [ ] Neutral
 - [ ] Little logic
-- [ ] No logic
+- [ ] **No logic**
 
 #### * **Write clear failure messages**
-- [ ] Unclear
+- [ ] Unclear (misses all: desired outcome, actual outcome, relevant parameters)
 - [ ] Somewhat unclear
 - [ ] Neutral
 - [ ] Fairly clear
-- [ ] Clear
+- [ ] **Clear (clearly distinguishes desired outcome from actual outcome and expresses any relevant parameters)**
 
 ### 4. **Tests and Code Sharing: DAMP, Not DRY**
-#### * **DAMP vs. DRY** (desirable: Balanced)
-- [ ] Entirely DRY (lots of logic in tests, no duplications, concise but incomplete tests)
-- [ ] Mostly DRY
-- [ ] Balanced (useful helper functions, parameters are passed to accommodate completeness, limited logic in tests nor helper functions)
-- [ ] Mostly DAMP
-- [ ] Entirely DAMP (lots of duplication, but complete tests)
+#### * **DAMP and DRY**
+- [ ] TOO DRY (lots of logic in tests, almost no duplications, often concise (only relevant information) but incomplete tests (missing information))
+- [ ] Neither DRY nor DAMP (messy, various solutions to the same problem)
+- [ ] **Mostly DAMP (concise helper functions, parameters are passed for completeness, only absolutely necessary logic in tests/helper functions)**
 
 #### * **Common Patterns for sharing code across tests**
 ##### * **Shared Values**
-- [ ] All declared values use generic and context-free names
-- [ ] Mostly generic and context-free value names
-- [ ] both equally
-- [ ] Mostly specific and configurable values
-- [ ] Entirely specific and configurable values used specifically for each test
+- [ ] All test values are shared globally and have generic and context-free names
+- [ ] Mostly global, shared test values with generic and context-free names
+- [ ] equally global, context-free and local, context-specific test values
+- [ ] Mostly context-specific and configurable values, some global context-free, generic values
+- [ ] **Entirely specific and configurable values used specifically for each test**
 
 ##### * **Shared Setup**
 - [ ] All tests depend on values from the setup method (violates completeness)
 - [ ] Most tests depend on values from the setup method
 - [ ] Neutral
 - [ ] Mostly complete tests (most values are (re-)declared/visible if the test depends on them)
-- [ ] Complete: shared setup does not hide any important values
+- [ ] **Complete: shared setup does not hide any important values**
 
 ##### * **Shared Helpers and Validation**
-- [ ] Obscured
-- [ ] Mostly obscured
-- [ ] Neutral
-- [ ] Mostly concise and complete
-- [ ] Concise and complete
+- [ ] Validate method called at the end of every test method, which performs a fixed set of checks against the SUT
+- [ ] Mostly multiple assertions in a validation method
+- [ ] equally single and multiple assertions in a validation method
+- [ ] Mostly focused validation methods asserting a single conceptual fact about their inputs
+- [ ] **Focused validation methods assert a single conceptual fact about their inputs**
