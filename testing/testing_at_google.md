@@ -65,4 +65,16 @@
             * Most unit tests require only **one** given-when-then.
            
             * ![multiprocess_gwt.png](images/multiprocess_gwt.png)
-        2. 
+        2. **Name tests after the behavior being tested**
+            * When in doubt, start a new test case with "should", e.g. ```BankAccountShould.doSomething()```.
+            * If you need to use "AND", e.g. ```BankAccountShould.doSomethingAndSomethingElse()```, you're most likely testing more than 1 behavior.
+            
+            * ![naming_patterns.png](images/naming_patterns.png)
+
+   3. **Don't put logic in tests**:
+        * Tests should not need their own tests.
+      
+        ![no_logic_in_tests.png](images/no_logic_in_tests.png)
+   4. **Write clear failure messages**:
+   
+       ![clear_failure_message.png](images/clear_failure_message.png)
