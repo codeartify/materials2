@@ -1,4 +1,7 @@
 # Test Doubles
+
+<img src="images/test-doubles-hierarchy.png" width="400" />
+
 ## What are Test Doubles?
 * An object or function that can stand in for a real implementation in a test.
 * Often referred to as mocking (though not all test doubles are mocks).
@@ -6,17 +9,25 @@
 * Allow to write tests that execute quickly and are not flaky compared to the real implementation.
 
 ## What are Test Double Trade-Offs?
+
 * **Testability**: a codebase needs to be designed to be _testable_ (e.g. dependency injection).
-* **Applicability**: improper use of test doubles (e.g. through mocking frameworks) can lead to brittle and complex tests.
-* **Fidelity**: test doubles should mimic the real implementation as closely as possible. However, simpler implementations mean they cannot give 100% fidelity. Unit tests that use test doubles need to be supplemented by larger-scope tests to exercise the real implementation.
+* **Applicability**: improper use of test doubles (e.g. through mocking frameworks) can lead to brittle and complex
+  tests.
+* **Fidelity**: test doubles should mimic the real implementation as closely as possible. However, simpler
+  implementations mean they cannot give 100% fidelity. Unit tests that use test doubles need to be supplemented by
+  larger-scope tests to exercise the real implementation.
 
 # When is Code Testable?
+
 * using a _seam_: allows the use of test doubles, e.g. Dependency injection
 
 ## Techniques for Test Doubles
+
 ### Fake
+
 * a simplified version of a real implementation that is easier to set up and use. e.g. in-memory database.
 * a system under test should not be able to tell whether it's interacting with a fake or the real implementation.
+
 ```
 // This fake implements the FileSystem interface. This interface is also
 // used by the real implementation.
@@ -39,8 +50,11 @@ public class FakeFileSystem implements FileSystem {
   }
 }
 ```
+
 ### Stub
+
 * a test double that provides canned responses to calls. e.g. a stub that always returns the same value.
+
 ```
 // Pass in a test double that was created by a mocking framework.
 AccessManager accessManager = new AccessManager(mockAuthorizationService):
@@ -53,7 +67,9 @@ assertThat(accessManager.userHasAccess(USER_ID)).isFalse();
 when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(USER);
 assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
 ```
+
 * **Interaction Testing**: validate how a function is called without actually calling the implementation of the function
+
 ```
 // Pass in a test double that was created by a mocking framework.
 AccessManager accessManager = new AccessManager(mockAuthorizationService);
@@ -65,7 +81,7 @@ verify(mockAuthorizationService).lookupUser(USER_ID);
 ```
 
 ## Real Implementations
-* Prefer realism over isolation
+* Prefer realism over isolation (not: for each class, an own test class)
 * A good test should use as many real objects as possible
 * Advantage:  test will fail if there is a bug in a real implementation
 
@@ -73,6 +89,28 @@ verify(mockAuthorizationService).lookupUser(USER_ID);
 * when it is fast, deterministic, and has simple dependencies
 * _fast_: the more test cases, the higher the impact may be on test execution times when using a real implementation
 * _deterministic_: the test should always return the same result for the same input
-  * nondeterminism leads to flakiness - if this happens often, use a test double
-  * nondeterminism can be caused by e.g. multithreading, system clock, network calls, etc.
-  * nondeterminism happens when code is not hermetic: the dependencies on external services are outside the control of the test
+    * nondeterminism leads to flakiness - if this happens often, use a test double
+    * nondeterminism can be caused by e.g. multithreading, system clock, network calls, etc.
+    * nondeterminism happens when code is not hermetic: the dependencies on external services are outside the control of
+      the test
+  
+### Dependency construction
+* Real implementations possibly require many "new" in their constructors
+```
+Foo foo = new Foo(new A(new B(new C()), new D()), new E(), ..., new Z());
+```
+* Alternative (discouraged if overused)
+```
+@Mock Foo mockFoo;
+```
+* Best practice: use the same factory method to create the object to test as for the production code to create the dependencies
+  * Use @Service, @Component etc. for dependency injection in Spring Boot, but beware of public API services vs. internal services
+``` 
+// use test doubles for slow/nondeterministic/complex dependencies (e.g. API)
+FooService foo = FooService.create(timeFactory, xyApi)); 
+
+FooService create(TimeFactory timeFactory, XYApi xyApi) {
+    // hide away implementation details
+    return new FooService(new InternalService1(new SecondInternalService()), new DateService(dateApi), new XYService(xyApi));
+}
+```
