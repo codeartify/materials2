@@ -183,3 +183,44 @@ FooService create(TimeFactory timeFactory, XYApi xyApi) {
 * for the test of the SUT to handle a variety of return values which may not be possible to trigger from fake/real implementation
 * But: a test that requires many functions to be stubbed can be a sign over overuse of stubs / SUT is too complex
 * **best practice**: prefer real implementations or fakes over stubs
+
+## Interaction Testing
+* prefer state testing over interaction testing
+  * either correct value returned, or some state in the SUT was changed
+  * interaction testing: only that a function was called, but not what it did 
+    * con: e.g. only save() called but not if the item was stored. We only _assume_ it was stored
+    * con: exposes implementation details --> brittle tests ("change detector test")
+* state testing is more scalable, reduces brittleness, makes test easier to change and maintain over time
+
+### When to use interaction testing?
+* unable to test the real implementation (too slow) or fake (doesn't exist, impossible to create)
+* difference in the number of calls (e.g. to a database or endpoint) or order of calls
+* **better practice**: if state testing is unfeasible, try to create larger-scope tests to see if state can be tested that way 
+
+### Best practice for interaction testing
+* Prefer interaction testing only for **state-changing functions**
+* Non-state-changing functions return a value, don't modify anything (getUser(), findResults(), readFile())
+  * the value is used to continue execution typically
+  * The interaction itself is not an important detail for correctness (no side effects)
+  * state-changing functions should be asserted to have at least some form of indication that it may have worked
+    * it's still better to use state testing if possible
+
+```java
+@Test public void grantUserPermission() {
+  UserAuthorizer userAuthorizer =
+      new UserAuthorizer(mockUserService, mockPermissionDatabase);
+  when(mockPermissionService.getPermission(FAKE_USER)).thenReturn(EMPTY);
+  
+  // Call the system under test.
+  userAuthorizer.grantPermission(USER_ACCESS);
+  
+  // addPermission() is state-changing, so it is reasonable to perform
+  // interaction testing to validate that it was called.
+  verify(mockPermissionDatabase).addPermission(FAKE_USER, USER_ACCESS);
+  
+  // getPermission() is non-state-changing, so this line of code isn’t
+  // needed. One clue that interaction testing may not be needed:
+  // getPermission() was already stubbed earlier in this test.
+  verify(mockPermissionDatabase).getPermission(FAKE_USER);
+}
+```
