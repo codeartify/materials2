@@ -129,3 +129,57 @@ FooService create(TimeFactory timeFactory, XYApi xyApi) {
   * If the hash needs to be checked exactly, such a fake cannot be employed!
   * **best practice**: raise an error if an execution path is taken in the real implementation that is not covered by the fake
 * a fake is "an optimisation": if the real implementation is to slow/non-deterministic, use a fake
+
+## Stubbing
+* a stub is a way for a test to hardcode behavior for a function that otherwise has no behavior on its own
+
+### Dangers of Overusing Stubs
+* Tests become unclear: stub code detracts from the intent of the test
+  * Sign of overuse: you mentally step through the SUT to understand why certain functions in the test are stubbed
+* Tests become brittle: implementation details in the test code
+  * Good test: only changes if **user-facing behavior of an API changes**
+* Test become less effective
+  * A fake needs to conform to the public api. A stub does not.
+  * There is no way to test if the stub works like the real implementation
+  * Contract is duplicated in each test (e.g. `when(stubCalculator.add(1, 2)).thenReturn(3)`)
+  * No state changes testable (like with a fake)
+#### Overuse
+```java
+@Test public void creditCardIsCharged() {
+  // Pass in test doubles that were created by a mocking framework.
+  paymentProcessor =
+      new PaymentProcessor(mockCreditCardServer, mockTransactionProcessor);
+  // Set up stubbing for these test doubles.
+  when(mockCreditCardServer.isServerAvailable()).thenReturn(true);
+  when(mockTransactionProcessor.beginTransaction()).thenReturn(transaction);
+  when(mockCreditCardServer.initTransaction(transaction)).thenReturn(true);
+  when(mockCreditCardServer.pay(transaction, creditCard, 500))
+      .thenReturn(false);
+  when(mockTransactionProcessor.endTransaction()).thenReturn(true);
+  // Call the system under test.
+  paymentProcessor.processPayment(creditCard, Money.dollars(500));
+  // There is no way to tell if the pay() method actually carried out the
+  // transaction, so the only thing the test can do is verify that the
+  // pay() method was called.
+  verify(mockCreditCardServer).pay(transaction, creditCard, 500);
+}
+```
+#### Without stubs
+* shorter, no implementation details
+
+```java
+@Test public void creditCardIsCharged() {
+  paymentProcessor = 
+      new PaymentProcessor(creditCardServer, transactionProcessor);
+  // Call the system under test.
+  paymentProcessor.processPayment(creditCard, Money.dollars(500));
+  // Query the credit card server state to see if the payment went through.
+  assertThat(creditCardServer.getMostRecentCharge(creditCard))
+      .isEqualTo(500);
+}
+```
+
+### When to use a stub?
+* for the test of the SUT to handle a variety of return values which may not be possible to trigger from fake/real implementation
+* But: a test that requires many functions to be stubbed can be a sign over overuse of stubs / SUT is too complex
+* **best practice**: prefer real implementations or fakes over stubs
