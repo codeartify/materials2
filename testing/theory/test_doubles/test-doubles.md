@@ -114,3 +114,18 @@ FooService create(TimeFactory timeFactory, XYApi xyApi) {
     return new FooService(new InternalService1(new SecondInternalService()), new DateService(dateApi), new XYService(xyApi));
 }
 ```
+
+## Faking
+* System under test should not be able to tell whether it's interacting with a fake or the real implementation
+* Example: interface to access a repository (save, get, update, delete) that is implemented by both real db implementation (e.g. MySQL) and a fake in-memory implementation (e.g. HashMap)
+* pro: execute quickly, avoid drawbacks of real implementations (e.g. slow, nondeterministic)
+* con: require effort, tests, domain-knowledge, maintenance, can lead to bugs if not kept in sync with the real implementation
+
+### Fidelity
+* a fake does not always need to behave exactly like the real implementation
+* a fake should conform to the public API contracts (after save(item), get(item.id) should return item, etc.)
+* a fake must have perfect fidelity _from the perspective of the test_
+  * example: if a test checks if a hash was created, it does not necessarily care about the exact value of the hash, only that it was created
+  * If the hash needs to be checked exactly, such a fake cannot be employed!
+  * **best practice**: raise an error if an execution path is taken in the real implementation that is not covered by the fake
+* a fake is "an optimisation": if the real implementation is to slow/non-deterministic, use a fake
