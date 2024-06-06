@@ -128,7 +128,7 @@ FooService create(TimeFactory timeFactory, XYApi xyApi) {
   * example: if a test checks if a hash was created, it does not necessarily care about the exact value of the hash, only that it was created
   * If the hash needs to be checked exactly, such a fake cannot be employed!
   * **best practice**: raise an error if an execution path is taken in the real implementation that is not covered by the fake
-* a fake is "an optimisation": if the real implementation is to slow/non-deterministic, use a fake
+* a fake is "an optimisation": if the real implementation is too slow/non-deterministic, use a fake
 
 ## Stubbing
 * a stub is a way for a test to hardcode behavior for a function that otherwise has no behavior on its own
