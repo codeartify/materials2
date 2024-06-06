@@ -224,3 +224,5 @@ FooService create(TimeFactory timeFactory, XYApi xyApi) {
   verify(mockPermissionDatabase).getPermission(FAKE_USER);
 }
 ```
+## Summary
+<img src="images/state-testing-over-interaction-testing.png" />
