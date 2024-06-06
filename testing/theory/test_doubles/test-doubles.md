@@ -28,7 +28,7 @@
 * a simplified version of a real implementation that is easier to set up and use. e.g. in-memory database.
 * a system under test should not be able to tell whether it's interacting with a fake or the real implementation.
 
-```
+```java
 // This fake implements the FileSystem interface. This interface is also
 // used by the real implementation.
 public class FakeFileSystem implements FileSystem {
@@ -55,7 +55,7 @@ public class FakeFileSystem implements FileSystem {
 
 * a test double that provides canned responses to calls. e.g. a stub that always returns the same value.
 
-```
+```java
 // Pass in a test double that was created by a mocking framework.
 AccessManager accessManager = new AccessManager(mockAuthorizationService):
 
@@ -70,7 +70,7 @@ assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
 
 * **Interaction Testing**: validate how a function is called without actually calling the implementation of the function
 
-```
+```java
 // Pass in a test double that was created by a mocking framework.
 AccessManager accessManager = new AccessManager(mockAuthorizationService);
 accessManager.userHasAccess(USER_ID);
@@ -96,16 +96,16 @@ verify(mockAuthorizationService).lookupUser(USER_ID);
   
 ### Dependency construction
 * Real implementations possibly require many "new" in their constructors
-```
+```java
 Foo foo = new Foo(new A(new B(new C()), new D()), new E(), ..., new Z());
 ```
 * Alternative (discouraged if overused)
-```
+```java
 @Mock Foo mockFoo;
 ```
 * Best practice: use the same factory method to create the object to test as for the production code to create the dependencies
   * Use @Service, @Component etc. for dependency injection in Spring Boot, but beware of public API services vs. internal services
-``` 
+```java
 // use test doubles for slow/nondeterministic/complex dependencies (e.g. API)
 FooService foo = FooService.create(timeFactory, xyApi)); 
 
