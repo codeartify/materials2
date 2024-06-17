@@ -141,4 +141,27 @@
     - Are there any inconsistencies or deviations from the project’s conventions?
     - Are any major style changes kept separate from the main changelist?
 
-By following this checklist, both authors and reviewers can make the most out of the code review process, ensuring that it is constructive, efficient, and conducive to learning and collaboration.
+## Questions to Ask Yourself During a Code Review
+1. Do you approach the process with a positive attitude?
+2. Are you nonjudgmental with colleagues?
+3. Are you choosy and rejecting reviews only because of nitpicking minutia in the reviewed code?
+4. Is competition out of the door?
+5. Is the process tedious?
+6. Are you making the defects more about the programmer rather than the code?
+7. Are you rewarding success?
+8. Are you valuing teaching more than critiquing?
+9. Are commits gigantic scattered pieces of code that need to be reviewed?
+10. Are you using code reviews as a way of improving communication within the team?
+11. Are you using code reviews as a learning experience?
+12. Are the objectives of the code review clearly defined?
+13. Are all asked changes properly prioritized and addressed?
+14. Is the review followed by a plan to put in action to fix defects?
+15. Are you fully committed as a reviewer?
+16. Are you biased by the perception of yourself (e.g., too young or too senior to perform a review)?
+17. Are you biased by the perception of others?
+18. Are you glancing over code?
+19. Do you rebuild and test the code?
+20. Do you check that the code is accompanied by additional documentation and tests?
+21. If code is unclear, do you ask for clarification?
+22. If you asked for a change, do you carefully review again the newer code to ensure important defects have been addressed?
+
